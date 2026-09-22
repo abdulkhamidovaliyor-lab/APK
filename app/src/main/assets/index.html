@@ -1,0 +1,28 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>InfinBANK</title><link rel="manifest" href="manifest.json"><style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff;font-family:Arial,sans-serif}.app{position:relative;width:100%;height:100dvh;max-width:520px;margin:auto;background:#fff;overflow:hidden}.screen{position:absolute;inset:0;display:none;background:#fff}.screen.active{display:block}.full{width:100%;height:100%;object-fit:fill;display:block}.tap{position:absolute;background:transparent;border:0;z-index:5}.nav{bottom:0;height:12.5%;width:25%}.n1{left:0}.n2{left:25%}.n3{left:50%}.n4{left:75%}
+#zero{left:39%;top:82%;width:22%;height:12%}.pin-dot{position:absolute;top:41.2%;width:3.5%;aspect-ratio:1;border-radius:50%;background:#17345f;display:none;z-index:6}.d1{left:30.0%}.d2{left:39.0%}.d3{left:48.0%}.d4{left:57.0%}
+.history{display:flex;flex-direction:column;height:100%}.history-head{width:100%;flex:0 0 auto;display:block}.history-scroll{flex:1;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:#fff}.hist-page{position:relative;width:100%}.hist-page img{width:100%;display:block}.rowtap{position:absolute;left:12%;right:2%;top:15%;height:13%;border:0;background:transparent;z-index:3}.history-nav{width:100%;flex:0 0 auto;display:block}.back{left:0;top:3%;width:20%;height:12%}
+</style></head><body><div class="app">
+<section id="lock" class="screen active"><img class="full" src="assets/lock.png"><button id="zero" class="tap" aria-label="0"></button><i class="pin-dot d1"></i><i class="pin-dot d2"></i><i class="pin-dot d3"></i><i class="pin-dot d4"></i></section>
+<section id="home" class="screen"><img class="full" src="assets/home.png"><button class="tap nav n1" data-go="home"></button><button class="tap nav n2" data-go="transfers"></button><button class="tap nav n3" data-go="payments"></button><button class="tap nav n4" data-go="history"></button></section>
+<section id="transfers" class="screen"><img class="full" src="assets/transfers.png"><button class="tap nav n1" data-go="home"></button><button class="tap nav n2" data-go="transfers"></button><button class="tap nav n3" data-go="payments"></button><button class="tap nav n4" data-go="history"></button></section>
+<section id="payments" class="screen"><img class="full" src="assets/payments.png"><button class="tap nav n1" data-go="home"></button><button class="tap nav n2" data-go="transfers"></button><button class="tap nav n3" data-go="payments"></button><button class="tap nav n4" data-go="history"></button></section>
+<section id="history" class="screen"><div class="history"><img class="history-head" src="assets/history_header.png"><div id="historyScroll" class="history-scroll">
+<div class="hist-page"><img src="assets/hist1.png"><button class="rowtap" data-detail="detail1"></button></div>
+<div class="hist-page"><img src="assets/hist2.png"><button class="rowtap" data-detail="detail2"></button></div>
+<div class="hist-page"><img src="assets/hist3.png"><button class="rowtap" data-detail="detail3"></button></div>
+<div class="hist-page"><img src="assets/hist4.png"><button class="rowtap" data-detail="detail4"></button></div>
+<div class="hist-page"><img src="assets/hist5.png"><button class="rowtap" data-detail="detail5"></button></div>
+<div class="hist-page"><img src="assets/hist6.png"><button class="rowtap" data-detail="detail6"></button></div>
+</div><div style="position:relative;flex:0 0 auto"><img class="history-nav" src="assets/history_nav.png"><button class="tap nav n1" data-go="home"></button><button class="tap nav n2" data-go="transfers"></button><button class="tap nav n3" data-go="payments"></button><button class="tap nav n4" data-go="history"></button></div></div></section>
+<section id="detail1" class="screen"><img class="full" src="assets/detail1.png"><button class="tap back" data-back></button></section>
+<section id="detail2" class="screen"><img class="full" src="assets/detail2.png"><button class="tap back" data-back></button></section>
+<section id="detail3" class="screen"><img class="full" src="assets/detail3.png"><button class="tap back" data-back></button></section>
+<section id="detail4" class="screen"><img class="full" src="assets/detail4.png"><button class="tap back" data-back></button></section>
+<section id="detail5" class="screen"><img class="full" src="assets/detail5.png"><button class="tap back" data-back></button></section>
+<section id="detail6" class="screen"><img class="full" src="assets/detail6.png"><button class="tap back" data-back></button></section>
+</div><script>
+let pin=0,lastHistoryScroll=0;const $=s=>document.querySelector(s);function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));$('#'+id).classList.add('active');if(id==='history')requestAnimationFrame(()=>{$('#historyScroll').scrollTop=lastHistoryScroll})}
+$('#zero').onclick=()=>{if(pin<4){pin++;document.querySelector('.d'+pin).style.display='block'}if(pin===4)setTimeout(()=>show('home'),180)};
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>show(b.dataset.go));document.querySelectorAll('[data-detail]').forEach(b=>b.onclick=()=>{lastHistoryScroll=$('#historyScroll').scrollTop;show(b.dataset.detail)});document.querySelectorAll('[data-back]').forEach(b=>b.onclick=()=>show('history'));
+</script></body></html>
